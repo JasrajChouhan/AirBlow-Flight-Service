@@ -8,7 +8,6 @@ const logFormat = printf(({ timestamp, level, message, stack }) => {
   return `${timestamp} [${level}]: ${stack || message}`;
 });
 
-
 // daily rotate log file
 new DailyRotateFile({
   filename: 'logs/%DATE%.log',
@@ -20,17 +19,10 @@ new DailyRotateFile({
 // Create the logger instance
 const logger = winston.createLogger({
   level: 'info', // Default log level
-  format: combine(
-    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    errors({ stack: true }),
-    logFormat
-  ),
+  format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), errors({ stack: true }), logFormat),
   transports: [
     new winston.transports.Console({
-      format: combine(
-        winston.format.colorize(),
-        logFormat
-      ),
+      format: combine(winston.format.colorize(), logFormat),
     }),
     new winston.transports.File({
       filename: 'logs/app.log',
@@ -39,9 +31,11 @@ const logger = winston.createLogger({
   ],
 });
 
-
-logger.exceptions.handle(new winston.transports.Console(), new winston.transports.File({ filename: 'logs/exceptions.log' }));
-process.on('unhandledRejection', (ex) => {
+logger.exceptions.handle(
+  new winston.transports.Console(),
+  new winston.transports.File({ filename: 'logs/exceptions.log' })
+);
+process.on('unhandledRejection', ex => {
   throw ex;
 });
 

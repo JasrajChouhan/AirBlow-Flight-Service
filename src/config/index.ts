@@ -1,2 +1,2 @@
-export { getEnv } from "./getEnv";
-export { default as logger } from "./logger";
+export { getEnv } from './getEnv';
+export { default as logger } from './logger';
