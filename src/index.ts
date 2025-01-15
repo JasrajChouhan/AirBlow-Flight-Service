@@ -1,7 +1,9 @@
-import express, { Request, Response } from 'express';
 import type { Express } from 'express';
+import express, { Request, Response } from 'express';
+import { getEnv } from './config/getEnv';
 
-const PORT = 3000;
+const PORT = getEnv('PORT', 3000);
+console.log(PORT)
 const app: Express = express();
 
 
