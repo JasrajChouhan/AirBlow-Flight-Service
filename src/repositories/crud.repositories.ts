@@ -10,7 +10,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     this.model = model;
   }
 
-  async create(data: PrismaClient[T]['create']['data']): Promise<any> {
+  async create(data: any): Promise<any> {
     try {
       const response = await (this.db[this.model] as any).create({ data });
       return response;
@@ -20,7 +20,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     }
   }
 
-  async delete(where: PrismaClient[T]['delete']['where']): Promise<any> {
+  async delete(where: any): Promise<any> {
     try {
       const response = await (this.db[this.model] as any).delete({ where });
       return response;
@@ -30,7 +30,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     }
   }
 
-  async get(where: PrismaClient[T]['findMany']['where']): Promise<any[]> {
+  async get(where: any): Promise<any[]> {
     try {
       const response = await (this.db[this.model] as any).findMany({ where });
       return response;
@@ -50,7 +50,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     }
   }
 
-  async update(where: PrismaClient[T]['update']['where'], data: PrismaClient[T]['update']['data']): Promise<any> {
+  async update(where: any, data: any): Promise<any> {
     try {
       const response = await (this.db[this.model] as any).update({ where, data });
       return response;
