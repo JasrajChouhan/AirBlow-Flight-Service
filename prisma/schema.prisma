@@ -13,3 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Airplane {
+  id String @unique @default(cuid())
+  modelNumber String @unique
+  capacity String
+
+  @@index([modelNumber])
+
+}
