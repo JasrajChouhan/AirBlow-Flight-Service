@@ -14,4 +14,24 @@ export const createAirplane = async (data: any) => {
   }
 };
 
-export default { createAirplane };
+export const getAllAirplanes = async () => {
+  try {
+    const response = await airplane.getAll();
+    return response;
+  } catch (error: any) {
+    logger.error(error.message || 'Something went wrong in the getAllAirplanes method of AirplaneService');
+    throw error;
+  }
+};
+
+export const getAirplaneById = async (id: string) => {
+  try {
+    const response = await airplane.get({ id });
+    return response;
+  } catch (error: any) {
+    logger.error(error.message || 'Something went wrong in the getAirplaneById method of AirplaneService');
+    throw error;
+  }
+};
+
+export default { createAirplane, getAllAirplanes, getAirplaneById };
