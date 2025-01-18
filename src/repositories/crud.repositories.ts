@@ -16,6 +16,11 @@ export class CRUDRepository<T extends keyof PrismaClient> {
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the create method of CRUDRepository');
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new Error('Unique constraint failed');
+        }
+      }
       throw error;
     }
   }
