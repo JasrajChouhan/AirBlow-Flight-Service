@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Airplane {
-  id String @unique @default(cuid())
+  id String @id @default(cuid())
   modelNumber String @unique
   capacity String
 
