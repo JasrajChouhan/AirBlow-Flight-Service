@@ -1,5 +1,7 @@
 import { logger } from '@/config';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { ApiError } from '@/utils/api/ApiError';
+import { PrismaErrorHandler } from '@/utils/prisma/prisma-error-handler';
+import { PrismaClient } from '@prisma/client';
 
 export class CRUDRepository<T extends keyof PrismaClient> {
   private db: PrismaClient;
@@ -16,21 +18,22 @@ export class CRUDRepository<T extends keyof PrismaClient> {
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the create method of CRUDRepository');
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new Error('Unique constraint failed');
-        }
-      }
-      throw error;
+      PrismaErrorHandler(error);
     }
   }
 
   async delete(where: any): Promise<any> {
+    console.log(where, this.model)
     try {
-      const response = await (this.db[this.model] as any).delete({ where });
+      const response = await (this.db[this.model] as any).delete({
+        where: {
+          id: where.id
+        }
+      });
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the delete method of CRUDRepository');
+      PrismaErrorHandler(error);
       throw error;
     }
   }
@@ -38,9 +41,13 @@ export class CRUDRepository<T extends keyof PrismaClient> {
   async get(where: any): Promise<any[]> {
     try {
       const response = await (this.db[this.model] as any).findMany({ where });
+      if (!response || response.length === 0) {
+        throw new ApiError(404, "No records found matching the criteria.");
+      }
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the get method of CRUDRepository');
+      PrismaErrorHandler(error);
       throw error;
     }
   }
@@ -51,7 +58,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the getAll method of CRUDRepository');
-      throw error;
+      return PrismaErrorHandler(error);
     }
   }
 
@@ -61,7 +68,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
       return response;
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the update method of CRUDRepository');
-      throw error;
+      return PrismaErrorHandler(error);
     }
   }
 }

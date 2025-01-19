@@ -9,4 +9,6 @@ router.get('/', AirplaneController.getAllAirplanes);
 // GET :: api/v1/airplanes/:id
 router.get('/:id', AirplaneController.getAirplaneById);
 
+router.delete('/:id', AirplaneController.deleteAirplaneById);
+
 export default router;

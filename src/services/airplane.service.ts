@@ -34,4 +34,17 @@ export const getAirplaneById = async (id: string) => {
   }
 };
 
-export default { createAirplane, getAllAirplanes, getAirplaneById };
+// delete an airplane by using of id
+
+export const deleteAirplaneById = async (id: string) => {
+  console.log("id" , id);
+  try {
+    const response = await airplane.delete({ id });
+    return response;
+  } catch (error: any) {
+    logger.error(error.message || 'Something went wrong in the deleteAirplaneById method of AirplaneService');
+    throw error;
+  }
+};
+
+export default { createAirplane, getAllAirplanes, getAirplaneById, deleteAirplaneById };

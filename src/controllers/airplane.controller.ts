@@ -40,4 +40,18 @@ const getAirplaneById = async (req: Request, res: Response, next: NextFunction) 
   }
 };
 
-export default { createAirplane, getAllAirplanes, getAirplaneById };
+const deleteAirplaneById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      res.json(errorResponse('Id is required', 400));
+    }
+    const response = await AirplaneService.deleteAirplaneById(id);
+    res.json(successResponse(response));
+  } catch (error: any) {
+    logger.error(error.message || 'Something went wrong in the deleteAirplaneById method of AirplaneController');
+    next(error);
+  }
+};
+
+export default { createAirplane, getAllAirplanes, getAirplaneById, deleteAirplaneById };
