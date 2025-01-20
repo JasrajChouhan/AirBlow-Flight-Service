@@ -37,7 +37,7 @@ export const getAirplaneById = async (id: string) => {
 // delete an airplane by using of id
 
 export const deleteAirplaneById = async (id: string) => {
-  console.log("id" , id);
+  console.log('id', id);
   try {
     const response = await airplane.delete({ id });
     return response;

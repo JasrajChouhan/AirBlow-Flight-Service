@@ -1,1 +1,1 @@
-export {validateReq} from './validate-req.middleware';
+export { validateReq } from './validate-req.middleware';

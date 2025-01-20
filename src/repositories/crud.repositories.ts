@@ -23,12 +23,12 @@ export class CRUDRepository<T extends keyof PrismaClient> {
   }
 
   async delete(where: any): Promise<any> {
-    console.log(where, this.model)
+    console.log(where, this.model);
     try {
       const response = await (this.db[this.model] as any).delete({
         where: {
-          id: where.id
-        }
+          id: where.id,
+        },
       });
       return response;
     } catch (error: any) {
@@ -42,7 +42,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     try {
       const response = await (this.db[this.model] as any).findMany({ where });
       if (!response || response.length === 0) {
-        throw new ApiError(404, "No records found matching the criteria.");
+        throw new ApiError(404, 'No records found matching the criteria.');
       }
       return response;
     } catch (error: any) {
