@@ -13,8 +13,8 @@ export type Environment = z.infer<typeof EnvironmentSchema>;
 
 // Create airplane Schema
 export const AirplaneSchema = z.object({
-  model: string().min(5, { message: 'model must be at least 5 characters long' }),
-  capacity: z.number().min(1, { message: 'capacity must be at least 1 characters long' }),
+  modelNumber: string().min(5, { message: 'model must be at least 5 characters long' }),
+  capacity: z.string().min(1, { message: 'capacity must be at least 1 characters long' }),
 });
 
 export type Airplane = z.infer<typeof AirplaneSchema>;

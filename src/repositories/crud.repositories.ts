@@ -19,6 +19,7 @@ export class CRUDRepository<T extends keyof PrismaClient> {
     } catch (error: any) {
       logger.error(error.message || 'Something went wrong in the create method of CRUDRepository');
       PrismaErrorHandler(error);
+      throw error;
     }
   }
 
