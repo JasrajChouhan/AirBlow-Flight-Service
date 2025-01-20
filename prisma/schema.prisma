@@ -18,6 +18,34 @@ model Airplane {
   modelNumber String @unique
   capacity String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  airportId   String?
+  airport     Airport? @relation(fields: [airportId], references: [id], onDelete: Cascade)
+
   @@index([modelNumber])
 
+}
+
+// City Model
+model City {
+  id String @id @default(cuid())
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Airport {
+  id        String @id @default(cuid())
+  name      String @unique
+  code      String @unique
+  airplanes  Airplane[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+  @@index([code])
 }
