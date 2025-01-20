@@ -19,12 +19,11 @@ export const AirplaneSchema = z.object({
 
 export type Airplane = z.infer<typeof AirplaneSchema>;
 
-
 // city Schema
 export const CitySchema = z.object({
-  name : string().min(5, { message: 'name must be at least 5 characters long' }),
-  pincode : string().min(4, { message: 'pincode must be at least 4 characters long' }).max(12 , {
-    message: 'pincode must be at most 12 characters long'
+  name: string().min(5, { message: 'name must be at least 5 characters long' }),
+  pincode: string().min(4, { message: 'pincode must be at least 4 characters long' }).max(12, {
+    message: 'pincode must be at most 12 characters long',
   }),
 });
 
