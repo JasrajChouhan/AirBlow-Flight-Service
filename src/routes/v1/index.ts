@@ -1,7 +1,7 @@
 import express from 'express';
 import airplaneRoutes from './airplane.routes';
 import pingRoutes from './ping.routes';
-import cityRoutes from './city.route';
+import cityRoutes from './city.routes';
 
 const router = express.Router();
 
