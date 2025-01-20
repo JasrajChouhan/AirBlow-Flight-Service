@@ -34,6 +34,7 @@ model Airplane {
 model City {
   id String @id @default(cuid())
   name String
+  pincode String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
