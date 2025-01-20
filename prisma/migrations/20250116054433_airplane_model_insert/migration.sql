@@ -13,3 +13,6 @@ CREATE UNIQUE INDEX "Airplane_modelNumber_key" ON "Airplane"("modelNumber");
 
 -- CreateIndex
 CREATE INDEX "Airplane_modelNumber_idx" ON "Airplane"("modelNumber");
+
+-- Modify this line to add a default value
+ALTER TABLE "Airplane" ADD COLUMN "updatedAt" TIMESTAMPTZ DEFAULT NOW();

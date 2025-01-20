@@ -21,6 +21,8 @@ model Airplane {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  flights Flight[]
+
   airportId   String?
   airport     Airport? @relation(fields: [airportId], references: [id], onDelete: Cascade)
 
@@ -46,6 +48,33 @@ model Airport {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  flightsDeparture Flight[] @relation("DepartureAirport")
+  flightsArrival   Flight[] @relation("ArrivalAirport")
+
   @@index([name])
   @@index([code])
+}
+
+// Flight Model
+
+model Flight {
+  flightNumber String @unique
+  airplaneId String
+  departureAirportId String
+  arrivalAirportId   String 
+  arrivalTime DateTime
+  departureTime DateTime
+  price Int
+  boardingGate String
+  totalSeats Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  airplane          Airplane @relation(fields: [airplaneId], references: [id], onDelete: Cascade)
+  departureAirport  Airport  @relation("DepartureAirport", fields: [departureAirportId], references: [id], onDelete: Cascade)
+  arrivalAirport    Airport  @relation("ArrivalAirport", fields: [arrivalAirportId], references: [id], onDelete: Cascade)
+
+  @@index([departureAirportId])
+  @@index([arrivalAirportId])
 }
