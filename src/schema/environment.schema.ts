@@ -28,3 +28,18 @@ export const CitySchema = z.object({
 });
 
 export type City = z.infer<typeof CitySchema>;
+
+// Airport Schema
+export const AirportSchema = z.object({
+  name: z
+    .string()
+    .min(3, {
+      message: 'Airport name must have at least 3 characters',
+    })
+    .max(100, {
+      message: 'Airport at max have 100 characters',
+    }),
+  code: z.string().min(3, {
+    message: 'Airport code must have at least 3 characters',
+  }),
+});
